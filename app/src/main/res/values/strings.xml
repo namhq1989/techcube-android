@@ -1,0 +1,13 @@
+<resources>
+    <string name="create_user_title">Tạo khách hàng</string>
+    <string name="create_user_full_name">Họ tên</string>
+    <string name="create_user_company">Công ty</string>
+    <string name="create_user_phone">Điện thoại</string>
+    <string name="create_user_email">Email</string>
+    <string name="create_user_reset">Reset</string>
+    <string name="create_user_create">Tạo</string>
+
+    <string name="scan_result_back">Quay lại</string>
+    <string name="scan_result_success_content">" ●  Sự kiện: %1$s\n     Thời gian: %2$s"</string>
+    <string name="loading">Vui lòng chờ trong giây lát</string>
+</resources>

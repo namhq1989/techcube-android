@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="provider_authorities">com.zodyapp.qrcode.provider</string>
+    <string name="app_name">QRCode</string>
+    <string name="host">http://139.59.246.187:3000/</string>
+    <bool name="enable_fabric">false</bool>
+</resources>

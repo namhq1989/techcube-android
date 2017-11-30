@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_common">Xảy ra lỗi không mong đợi, vui lòng thử lại trong giây lát</string>
+    <string name="error_email_empty">Vui lòng nhập email</string>
+    <string name="error_email_wrong_format">Email không đúng định dạng</string>
+    <string name="error_phone_empty">Vui lòng nhập số điện thoại</string>
+    <string name="error_phone_wrong_format">Số điện thoại không đúng định dạng</string>
+    <string name="error_name_empty">Vui lòng nhập họ tên</string>
+    <string name="error_name_wrong_format">Họ tên phải ít nhất %1$d ký tự</string>
+</resources>

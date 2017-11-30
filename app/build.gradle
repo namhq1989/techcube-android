@@ -1,0 +1,110 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.zodyapp.qrcode"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    dataBinding {
+        enabled = true
+    }
+
+    lintOptions {
+        abortOnError false
+        lintConfig file('lint.xml')
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    signingConfigs {
+        release {
+            def signFile = file("../keystores/keystores.properties")
+            def signingProps = new Properties()
+            signingProps.load(new FileInputStream(signFile))
+
+            storeFile file("../keystores/release.jks")
+            storePassword signingProps['storePassword']
+            keyAlias signingProps['keyAlias']
+            keyPassword signingProps['keyPassword']
+        }
+
+        debug {
+            storeFile file("../keystores/debug.jks")
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            debuggable true
+            signingConfig signingConfigs.debug
+            applicationIdSuffix '.debug'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def applicationId = variant.mergedFlavor.applicationId + (variant.buildType.applicationIdSuffix == null ? "" : variant.buildType.applicationIdSuffix)
+            output.outputFileName = "${variant.buildType.name}_${applicationId}_v${variant.versionName}-${variant.versionCode}.apk"
+        }
+    }
+}
+
+dependencies {
+    ext.versions = [
+            support             : "27.0.1",
+            lifecycle           : "1.0.0",
+            constraint_layout   : "1.1.0-beta3",
+            okhttp              : "3.8.1",
+            retrofit            : "2.3.0",
+            dagger              : "2.11",
+            databinding         : "3.0.0"
+    ]
+
+    implementation "com.android.support:appcompat-v7:${versions.support}"
+    implementation "com.android.support:design:${versions.support}"
+    implementation "com.android.support:recyclerview-v7:${versions.support}"
+    implementation "com.android.support.constraint:constraint-layout:${versions.constraint_layout}"
+
+    annotationProcessor "com.android.databinding:compiler:${versions.databinding}"
+
+    implementation "android.arch.lifecycle:extensions:${versions.lifecycle}"
+    implementation "android.arch.lifecycle:common-java8:${versions.lifecycle}"
+    implementation "android.arch.persistence.room:runtime:${versions.lifecycle}"
+    annotationProcessor "android.arch.persistence.room:compiler:${versions.lifecycle}"
+    implementation "android.arch.paging:runtime:1.0.0-alpha3"
+
+    implementation "com.google.dagger:dagger:${versions.dagger}"
+    implementation "com.google.dagger:dagger-android:${versions.dagger}"
+    implementation "com.google.dagger:dagger-android-support:${versions.dagger}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${versions.dagger}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${versions.dagger}"
+
+    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}"
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+
+    implementation 'com.facebook.fresco:fresco:1.5.0'
+
+    implementation 'com.google.code.gson:gson:2.8.1'
+    implementation 'joda-time:joda-time:2.9.9'
+    implementation 'me.dm7.barcodescanner:zxing:1.9'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
+

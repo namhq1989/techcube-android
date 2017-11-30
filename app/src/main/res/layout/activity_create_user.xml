@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="loading"
+            type="boolean" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background">
+
+            <ImageButton
+                android:id="@+id/btStartScan"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/background_button_camera"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_camera"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_user_title"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/backgroundWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/backgroundWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/background_create_user_input"
+                android:elevation="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLabel">
+
+                <EditText
+                    android:id="@+id/etUserName"
+                    style="@style/EditTextCreateUser"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="60dp"
+                    android:drawableLeft="@drawable/ic_name"
+                    android:drawableStart="@drawable/ic_name"
+                    android:enabled="@{!loading}"
+                    android:hint="@string/create_user_full_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    app:layout_constraintEnd_toEndOf="@+id/backgroundWhite"
+                    app:layout_constraintStart_toStartOf="@+id/backgroundWhite"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/etUserCompany"
+                    style="@style/EditTextCreateUser"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:drawableLeft="@drawable/ic_company"
+                    android:drawableStart="@drawable/ic_company"
+                    android:enabled="@{!loading}"
+                    android:hint="@string/create_user_company"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapSentences"
+                    app:layout_constraintEnd_toEndOf="@+id/backgroundWhite"
+                    app:layout_constraintStart_toStartOf="@+id/backgroundWhite"
+                    app:layout_constraintTop_toBottomOf="@+id/etUserName" />
+
+                <EditText
+                    android:id="@+id/etUserPhone"
+                    style="@style/EditTextCreateUser"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:drawableLeft="@drawable/ic_phone"
+                    android:drawableStart="@drawable/ic_phone"
+                    android:enabled="@{!loading}"
+                    android:hint="@string/create_user_phone"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    app:layout_constraintEnd_toEndOf="@+id/backgroundWhite"
+                    app:layout_constraintStart_toStartOf="@+id/backgroundWhite"
+                    app:layout_constraintTop_toBottomOf="@+id/etUserCompany" />
+
+                <EditText
+                    android:id="@+id/etUserEmail"
+                    style="@style/EditTextCreateUser"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:drawableLeft="@drawable/ic_email"
+                    android:drawableStart="@drawable/ic_email"
+                    android:enabled="@{!loading}"
+                    android:hint="@string/create_user_email"
+                    android:imeOptions="actionDone"
+                    android:inputType="textEmailAddress"
+                    app:layout_constraintEnd_toEndOf="@+id/backgroundWhite"
+                    app:layout_constraintStart_toStartOf="@+id/backgroundWhite"
+                    app:layout_constraintTop_toBottomOf="@+id/etUserPhone" />
+
+                <Button
+                    android:id="@+id/btUserReset"
+                    android:layout_width="75dp"
+                    android:layout_height="36dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/background_button_white_dark_border"
+                    android:enabled="@{!loading}"
+                    android:text="@string/create_user_reset"
+                    android:textColor="@color/darkerGray"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btUserCreate"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="@+id/backgroundWhite"
+                    app:layout_constraintTop_toBottomOf="@+id/etUserEmail" />
+
+                <Button
+                    android:id="@+id/btUserCreate"
+                    android:layout_width="75dp"
+                    android:layout_height="36dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/background_button_orange"
+                    android:enabled="@{!loading}"
+                    android:text="@string/create_user_create"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/btUserReset"
+                    app:layout_constraintEnd_toEndOf="@+id/backgroundWhite"
+                    app:layout_constraintStart_toEndOf="@+id/btUserReset" />
+            </android.support.constraint.ConstraintLayout>
+
+
+            <ImageView
+                android:id="@+id/ivUserAvatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/background_create_user_avatar"
+                android:elevation="1dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_avatar_default"
+                app:layout_constraintBottom_toTopOf="@+id/backgroundWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/backgroundWhite" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</layout>
