@@ -88,8 +88,11 @@ public class MainActivity extends BaseActivity implements Injectable {
 
     private void handleCreateUserResult(Resource<Void> result) {
         binding.setLoading(result.isLoading());
-        if (result.isError() | result.isSuccessfully()) {
+        if (result.isError()) {
             AppUtils.showMessage(this, result.message);
+        } else if (result.isSuccessfully()) {
+            AppUtils.showMessage(this, result.message);
+            clearAllInput();
         }
     }
 
