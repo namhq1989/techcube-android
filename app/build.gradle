@@ -24,11 +24,22 @@ android {
     }
     signingConfigs {
         release {
-            def signFile = file("../keystores/keystores.properties")
+            def signFile = file("../keystores/release.keystores.properties")
             def signingProps = new Properties()
             signingProps.load(new FileInputStream(signFile))
 
             storeFile file("../keystores/release.jks")
+            storePassword signingProps['storePassword']
+            keyAlias signingProps['keyAlias']
+            keyPassword signingProps['keyPassword']
+        }
+
+        stagging {
+            def signFile = file("../keystores/stagging.keystores.properties")
+            def signingProps = new Properties()
+            signingProps.load(new FileInputStream(signFile))
+
+            storeFile file("../keystores/stagging.jks")
             storePassword signingProps['storePassword']
             keyAlias signingProps['keyAlias']
             keyPassword signingProps['keyPassword']
@@ -44,6 +55,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             signingConfig signingConfigs.release
+        }
+
+        stagging {
+            debuggable true
+            signingConfig signingConfigs.stagging
+            applicationIdSuffix '.stagging'
         }
 
         debug {
@@ -68,7 +85,7 @@ dependencies {
             constraint_layout   : "1.1.0-beta3",
             okhttp              : "3.8.1",
             retrofit            : "2.3.0",
-            dagger              : "2.11",
+            dagger              : "2.13",
             databinding         : "3.0.0"
     ]
 
