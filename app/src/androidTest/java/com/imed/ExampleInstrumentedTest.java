@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.zodyapp.qrcode", appContext.getPackageName());
+        assertEquals("com.imed", appContext.getPackageName());
     }
 }
