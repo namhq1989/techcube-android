@@ -1,6 +1,7 @@
 package com.imed.repository;
 
 import android.arch.lifecycle.LiveData;
+import android.os.Build;
 import android.support.annotation.NonNull;
 
 import com.imed.api.ApiResponse;
@@ -60,7 +61,8 @@ public class AppRepository {
             @Override
             protected LiveData<ApiResponse<ScanCodeResult>> createCall() {
                 String agent = System.getProperty("http.agent");
-                return appService.sendCode(code, agent);
+                String deviceName = String.format("%s %s", Build.MANUFACTURER, Build.MODEL);
+                return appService.sendCode(code, agent, deviceName);
             }
         }.asLiveData();
     }

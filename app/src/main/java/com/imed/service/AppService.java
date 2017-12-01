@@ -21,5 +21,5 @@ public interface AppService {
 
     @FormUrlEncoded
     @POST("checkin")
-    LiveData<ApiResponse<ScanCodeResult>> sendCode(@Field("code") String code, @Field("deviceInfo") String deviceInfo);
+    LiveData<ApiResponse<ScanCodeResult>> sendCode(@Field("code") String code, @Field("device[info]") String deviceInfo, @Field("device[name]") String deviceName);
 }
