@@ -1,4 +1,9 @@
 <resources>
+    <string name="login_title">Đăng nhập</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Mật khẩu</string>
+    <string name="login_submit">Đăng nhập</string>
+
     <string name="create_user_title">Tạo khách hàng</string>
     <string name="create_user_full_name">Họ tên</string>
     <string name="create_user_company">Công ty</string>

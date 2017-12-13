@@ -24,7 +24,7 @@ import javax.inject.Inject;
  * Created by vinhnguyen.it.vn on 2017, November 29
  */
 
-public class MainActivity extends BaseActivity implements Injectable {
+public class CreateUserActivity extends BaseActivity implements Injectable {
 
     private static final int REQUEST_CODE_SCAN = 1;
 

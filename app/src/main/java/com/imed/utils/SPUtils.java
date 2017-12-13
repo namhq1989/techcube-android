@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.imed.BuildConfig;
-import com.imed.R;
 
 /**
  * Created by vinhnguyen.it.vn on 2017, September 20
@@ -14,7 +13,7 @@ public class SPUtils {
 
     private final String KEY_TOKEN = "pref_key_token";
     private final String KEY_EMAIL = "pref_key_email";
-    private final String KEY_ID = "pref_key_id";
+    private final String KEY_ROLE = "pref_key_role";
     private final String KEY_DEVICE_TOKEN = "pref_device_token";
 
     private final SharedPreferences sp;
@@ -39,12 +38,12 @@ public class SPUtils {
         sp.edit().putString(KEY_EMAIL, email).apply();
     }
 
-    public String getId() {
-        return sp.getString(KEY_ID, null);
+    public String getRole() {
+        return sp.getString(KEY_ROLE, null);
     }
 
-    public void setId(String id) {
-        sp.edit().putString(KEY_ID, id).apply();
+    public void setRole(String role) {
+        sp.edit().putString(KEY_ROLE, role).apply();
     }
 
     public String getDeviceToken() {
@@ -56,6 +55,6 @@ public class SPUtils {
     }
 
     public void clear() {
-        sp.edit().remove(KEY_TOKEN).remove(KEY_ID).apply();
+        sp.edit().remove(KEY_TOKEN).remove(KEY_ROLE).apply();
     }
 }

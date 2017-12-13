@@ -24,6 +24,7 @@ public class ValidationUtils {
     private static final Pattern PHONE = Pattern.compile("^\\+?1?(\\d{10,12}$)");
 
     private static final int NAME_MINIMUM_LENGTH = 3;
+    private static final int PASSWORD_MINIMUM_LENGTH = 6;
     private final Context context;
 
     public ValidationUtils(Context context) {
@@ -53,6 +54,16 @@ public class ValidationUtils {
     public String validatePhone(String phone) {
         if (phone != null && phone.trim().length() > 0 && !PHONE.matcher(phone).matches()) {
             return context.getString(R.string.error_phone_wrong_format);
+        }
+        return null;
+    }
+
+    public String validatePassword(String password) {
+        if (password == null || password.length() == 0) {
+            return context.getString(R.string.error_password_empty);
+        }
+        if (password.length() < PASSWORD_MINIMUM_LENGTH) {
+            return context.getString(R.string.error_password_wrong_format, PASSWORD_MINIMUM_LENGTH);
         }
         return null;
     }

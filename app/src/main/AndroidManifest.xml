@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.create.MainActivity"
+            android:name=".ui.create.CreateUserActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.scan.ScanQRCodeActivity"
@@ -28,6 +28,7 @@
         <activity
             android:name=".ui.scan.ScanResultActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.login.LoginActivity" />
 
     </application>
 </manifest>

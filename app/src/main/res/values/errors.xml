@@ -7,4 +7,6 @@
     <string name="error_phone_wrong_format">Số điện thoại không đúng định dạng</string>
     <string name="error_name_empty">Vui lòng nhập họ tên</string>
     <string name="error_name_wrong_format">Họ tên phải ít nhất %1$d ký tự</string>
+    <string name="error_password_empty">Vui lòng nhập mật khẩu</string>
+    <string name="error_password_wrong_format">Mật khẩu phải ít nhất %1$d ký tự</string>
 </resources>
