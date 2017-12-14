@@ -3,11 +3,13 @@ package com.imed.service;
 import android.arch.lifecycle.LiveData;
 
 import com.imed.api.ApiResponse;
+import com.imed.model.GetConfigResult;
 import com.imed.model.LoginResult;
 import com.imed.model.ScanCodeResult;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -15,6 +17,9 @@ import retrofit2.http.POST;
  */
 
 public interface AppService {
+
+    @GET("data")
+    LiveData<ApiResponse<GetConfigResult>> loadConfig();
 
     @FormUrlEncoded
     @POST("login")

@@ -6,16 +6,22 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.imed.R;
 import com.imed.api.Resource;
 import com.imed.databinding.ActivityCreateUserBinding;
 import com.imed.di.Injectable;
+import com.imed.model.EventAndPlan;
+import com.imed.model.Plan;
 import com.imed.model.ScanCodeResult;
 import com.imed.ui.base.BaseActivity;
+import com.imed.ui.login.LoginActivity;
 import com.imed.ui.scan.ScanQRCodeActivity;
 import com.imed.ui.scan.ScanResultActivity;
 import com.imed.ui.view.LoadingDialog;
+import com.imed.ui.view.SpinnerAdapter;
 import com.imed.utils.AppUtils;
 
 import javax.inject.Inject;
@@ -49,6 +55,39 @@ public class CreateUserActivity extends BaseActivity implements Injectable {
         binding.btUserReset.setOnClickListener(view -> clearAllInput());
         binding.btUserCreate.setOnClickListener(view -> createUser());
         binding.btStartScan.setOnClickListener(view -> startScan());
+        binding.btLogout.setOnClickListener(view -> {
+            createUserViewModel.logout();
+            goLogin();
+        });
+
+        binding.snChooseEvent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //noinspection unchecked
+                EventAndPlan event = ((SpinnerAdapter<EventAndPlan>) adapterView.getAdapter()).getItemAt(i);
+                createUserViewModel.select(event);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        createUserViewModel.getEvents().observe(this, events ->
+                binding.snChooseEvent.setAdapter(new SpinnerAdapter<EventAndPlan>(this, "Sự kiện", events) {
+                    @Override
+                    public String transfer(EventAndPlan item) {
+                        return item.event.name;
+                    }
+                }));
+        createUserViewModel.getSelectedEvent().observe(this, event ->
+                binding.snChoosePlan.setAdapter(new SpinnerAdapter<Plan>(this, "Gói khách hàng", event != null ? event.plans : null) {
+                    @Override
+                    public String transfer(Plan item) {
+                        return item.name;
+                    }
+                }));
     }
 
     @Override
@@ -65,6 +104,9 @@ public class CreateUserActivity extends BaseActivity implements Injectable {
         binding.etUserCompany.setText(null);
         binding.etUserPhone.setText(null);
         binding.etUserEmail.setText(null);
+
+        binding.snChooseEvent.setSelection(0);
+        binding.snChoosePlan.setSelection(0);
 
         binding.etUserName.requestFocus();
     }
@@ -103,5 +145,11 @@ public class CreateUserActivity extends BaseActivity implements Injectable {
             LoadingDialog.getInstance(this).hideAlways();
             ScanResultActivity.start(this, result.isSuccessfully(), result.message, result.data);
         }
+    }
+
+    private void goLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

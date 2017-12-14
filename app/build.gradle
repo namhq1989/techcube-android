@@ -99,6 +99,8 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:${versions.lifecycle}"
     implementation "android.arch.lifecycle:common-java8:${versions.lifecycle}"
     implementation "android.arch.paging:runtime:1.0.0-alpha4"
+    implementation "android.arch.persistence.room:runtime:${versions.lifecycle}"
+    annotationProcessor "android.arch.persistence.room:compiler:${versions.lifecycle}"
 
     implementation "com.google.dagger:dagger:${versions.dagger}"
     implementation "com.google.dagger:dagger-android:${versions.dagger}"

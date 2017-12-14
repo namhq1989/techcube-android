@@ -6,6 +6,7 @@
 
     <color name="white">@android:color/white</color>
     <color name="black">@android:color/black</color>
+    <color name="blackWithAlpha">#b2000000</color>
     <color name="darkerGray">#4C4C4C</color>
     <color name="orange">#EC6426</color>
     <color name="green">#36D170</color>
