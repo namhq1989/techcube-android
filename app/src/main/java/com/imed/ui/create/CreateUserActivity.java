@@ -73,6 +73,19 @@ public class CreateUserActivity extends BaseActivity implements Injectable {
 
             }
         });
+        binding.snChoosePlan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //noinspection unchecked
+                Plan plan = ((SpinnerAdapter<Plan>) adapterView.getAdapter()).getItemAt(i);
+                createUserViewModel.select(plan);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         createUserViewModel.getEvents().observe(this, events ->
                 binding.snChooseEvent.setAdapter(new SpinnerAdapter<EventAndPlan>(this, "Sự kiện", events) {

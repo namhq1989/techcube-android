@@ -31,7 +31,7 @@ public class ScanResultActivity extends BaseActivity {
         Intent starter = new Intent(context, ScanResultActivity.class);
         starter.putExtra(EXTRA_SUCCESS, success);
         starter.putExtra(EXTRA_MESSAGE, message);
-        starter.putExtra(EXTRA_RESULT, result);
+//        starter.putExtra(EXTRA_RESULT, result);
         context.startActivity(starter);
     }
 

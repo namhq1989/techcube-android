@@ -52,7 +52,10 @@ public class ValidationUtils {
     }
 
     public String validatePhone(String phone) {
-        if (phone != null && phone.trim().length() > 0 && !PHONE.matcher(phone).matches()) {
+        if (phone == null || phone.trim().length() == 0) {
+            return context.getString(R.string.error_phone_empty);
+        }
+        if (!PHONE.matcher(phone).matches()) {
             return context.getString(R.string.error_phone_wrong_format);
         }
         return null;
@@ -64,6 +67,27 @@ public class ValidationUtils {
         }
         if (password.length() < PASSWORD_MINIMUM_LENGTH) {
             return context.getString(R.string.error_password_wrong_format, PASSWORD_MINIMUM_LENGTH);
+        }
+        return null;
+    }
+
+    public String validateCompany(String company) {
+        if (company == null || company.trim().length() == 0) {
+            return context.getString(R.string.error_company_empty);
+        }
+        return null;
+    }
+
+    public String validateEvent(String id) {
+        if (id == null || id.trim().length() == 0) {
+            return context.getString(R.string.error_event_empty);
+        }
+        return null;
+    }
+
+    public String validatePlan(String id) {
+        if (id == null || id.trim().length() == 0) {
+            return context.getString(R.string.error_plan_empty);
         }
         return null;
     }

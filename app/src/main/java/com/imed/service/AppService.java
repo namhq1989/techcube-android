@@ -28,7 +28,13 @@ public interface AppService {
 
     @FormUrlEncoded
     @POST("customers")
-    LiveData<ApiResponse<Void>> createUser(@Field("name") String name, @Field("company") String company, @Field("phone") String phone, @Field("email") String email);
+    LiveData<ApiResponse<Void>> createCustomer(@Field("name") String name, @Field("company") String company,
+                                               @Field("phone") String phone, @Field("email") String email,
+                                               @Field("eventId") String eventId, @Field("planId") String planId);
+
+    @FormUrlEncoded
+    @POST("customers/upgradePlan")
+    LiveData<ApiResponse<Void>> updateCustomer(@Field("phone") String phone, @Field("email") String email, @Field("eventId") String eventId, @Field("planId") String planId);
 
     @FormUrlEncoded
     @POST("checkin")

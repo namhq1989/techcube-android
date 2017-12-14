@@ -6,9 +6,9 @@ import android.arch.lifecycle.MutableLiveData;
 import com.imed.api.Resource;
 import com.imed.livedata.Transformations;
 import com.imed.model.EventAndPlan;
+import com.imed.model.Plan;
 import com.imed.repository.AppRepository;
 import com.imed.ui.base.BaseViewModel;
-import com.imed.utils.Objects;
 
 import java.util.List;
 
@@ -22,6 +22,7 @@ public class CreateUserViewModel extends BaseViewModel {
 
     private final LiveData<List<EventAndPlan>> eventsLiveData;
     private final MutableLiveData<EventAndPlan> selectedEventLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Plan> selectedPlanLiveData = new MutableLiveData<>();
 
     private final MutableLiveData<UserInfo> userInfoMutableLiveData = new MutableLiveData<>();
     private final LiveData<Resource<Void>> createUserResultLiveData;
@@ -33,7 +34,13 @@ public class CreateUserViewModel extends BaseViewModel {
         this.appRepository = appRepository;
 
         eventsLiveData = appRepository.loadEvents();
-        createUserResultLiveData = Transformations.switchMap(userInfoMutableLiveData, info -> appRepository.createUser(info.name, info.company, info.phone, info.email));
+        createUserResultLiveData = Transformations.switchMap(userInfoMutableLiveData, info -> {
+            EventAndPlan event = selectedEventLiveData.getValue();
+            String eventId = event != null ? event.event.id : null;
+            Plan plan = selectedPlanLiveData.getValue();
+            String planId = plan != null ? plan.id : null;
+            return appRepository.createUser(info.name, info.company, info.phone, info.email, eventId, planId);
+        });
     }
 
     public void create(String name, String company, String phone, String email) {
@@ -42,6 +49,10 @@ public class CreateUserViewModel extends BaseViewModel {
 
     public void select(EventAndPlan event) {
         selectedEventLiveData.setValue(event);
+    }
+
+    public void select(Plan plan) {
+        selectedPlanLiveData.setValue(plan);
     }
 
     public void logout() {

@@ -12,7 +12,6 @@ import com.imed.db.EventDao;
 import com.imed.db.UserDao;
 import com.imed.livedata.StaticLiveData;
 import com.imed.livedata.Transformations;
-import com.imed.model.Event;
 import com.imed.model.EventAndPlan;
 import com.imed.model.GetConfigResult;
 import com.imed.model.LoginResult;
@@ -111,10 +110,21 @@ public class AppRepository {
         });
     }
 
-    public LiveData<Resource<Void>> createUser(String name, String company, String phone, String email) {
-        String error = validationUtils.validateName(name);
-        if (error != null) {
-            return new StaticLiveData<>(Resource.error(null, error));
+    public LiveData<Resource<Void>> createUser(String name, String company, String phone, String email, String eventId, String planId) {
+        boolean hasName = name != null && name.trim().length() > 0;
+        boolean hasEvent = eventId != null && eventId.trim().length() > 0;
+
+        String error;
+        if (hasName) {
+            error = validationUtils.validateName(name);
+            if (error != null) {
+                return new StaticLiveData<>(Resource.error(null, error));
+            }
+
+            error = validationUtils.validateCompany(company);
+            if (error != null) {
+                return new StaticLiveData<>(Resource.error(null, error));
+            }
         }
         error = validationUtils.validatePhone(phone);
         if (error != null) {
@@ -124,11 +134,29 @@ public class AppRepository {
         if (error != null) {
             return new StaticLiveData<>(Resource.error(null, error));
         }
+
+        if (!hasName) {
+            error = validationUtils.validateEvent(eventId);
+            if (error != null) {
+                return new StaticLiveData<>(Resource.error(null, error));
+            }
+        }
+
+        if (!hasName || hasEvent) {
+            error = validationUtils.validatePlan(planId);
+            if (error != null) {
+                return new StaticLiveData<>(Resource.error(null, error));
+            }
+        }
+
         return new NetworkResource<Void>(appExecutors) {
             @NonNull
             @Override
             protected LiveData<ApiResponse<Void>> createCall() {
-                return appService.createUser(name, company, phone, email);
+                if (hasName) {
+                    return appService.createCustomer(name, company, phone, email, eventId, planId);
+                }
+                return appService.updateCustomer(phone, email, eventId, planId);
             }
         }.asLiveData();
     }
