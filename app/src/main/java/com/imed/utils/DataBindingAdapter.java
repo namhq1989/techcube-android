@@ -22,6 +22,11 @@ import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.common.RotationOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.imed.model.Area;
+import com.imed.model.History;
+
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.text.NumberFormat;
 
@@ -117,5 +122,18 @@ public class DataBindingAdapter {
         int id = context.getResources().getIdentifier(fontName, "font", context.getPackageName());
         Typeface typeface = ResourcesCompat.getFont(textView.getContext(), id);
         textView.setTypeface(typeface);
+    }
+
+
+    @BindingAdapter("areaTime")
+    public static void setTimeOfArea(TextView textView, Area area) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy, HH:mm");
+        textView.setText(String.format("%1s - %2s", formatter.print(area.startAt.getTime()), formatter.print(area.endAt.getTime())));
+    }
+
+    @BindingAdapter("historyTime")
+    public static void setTimeOfHistory(TextView textView, History history) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy, HH:mm");
+        textView.setText(formatter.print(history.date.getTime()));
     }
 }

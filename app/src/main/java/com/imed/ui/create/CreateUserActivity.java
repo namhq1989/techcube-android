@@ -15,12 +15,11 @@ import com.imed.databinding.ActivityCreateUserBinding;
 import com.imed.di.Injectable;
 import com.imed.model.EventAndPlan;
 import com.imed.model.Plan;
-import com.imed.model.ScanCodeResult;
+import com.imed.ui.area.AreaActivity;
 import com.imed.ui.base.BaseActivity;
+import com.imed.ui.history.HistoryActivity;
 import com.imed.ui.login.LoginActivity;
 import com.imed.ui.scan.ScanQRCodeActivity;
-import com.imed.ui.scan.ScanResultActivity;
-import com.imed.ui.view.LoadingDialog;
 import com.imed.ui.view.SpinnerAdapter;
 import com.imed.utils.AppUtils;
 
@@ -33,13 +32,13 @@ import javax.inject.Inject;
 public class CreateUserActivity extends BaseActivity implements Injectable {
 
     private static final int REQUEST_CODE_SCAN = 1;
+    private static final int REQUEST_CODE_AREA = 2;
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
 
     private ActivityCreateUserBinding binding;
     private CreateUserViewModel createUserViewModel;
-    private SendCodeViewModel sendCodeViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,9 +47,6 @@ public class CreateUserActivity extends BaseActivity implements Injectable {
 
         createUserViewModel = ViewModelProviders.of(this, viewModelFactory).get(CreateUserViewModel.class);
         createUserViewModel.getCreateUserResultLiveData().observe(this, this::handleCreateUserResult);
-
-        sendCodeViewModel = ViewModelProviders.of(this, viewModelFactory).get(SendCodeViewModel.class);
-        sendCodeViewModel.getSendCodeResultLiveData().observe(this, this::handleSendCodeResult);
 
         binding.btUserReset.setOnClickListener(view -> clearAllInput());
         binding.btUserCreate.setOnClickListener(view -> createUser());
@@ -107,7 +103,12 @@ public class CreateUserActivity extends BaseActivity implements Injectable {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK && data != null) {
             String code = data.getStringExtra(ScanQRCodeActivity.EXTRA_SCANNED_CODE);
-            sendCode(code);
+            goSelectArea(code);
+        } else if (requestCode == REQUEST_CODE_AREA && resultCode == RESULT_OK && data != null) {
+            String code = data.getStringExtra(AreaActivity.EXTRA_CODE);
+            String event = data.getStringExtra(AreaActivity.EXTRA_EVENT);
+            String area = data.getStringExtra(AreaActivity.EXTRA_AREA);
+            goHistory(code, event, area);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -137,10 +138,6 @@ public class CreateUserActivity extends BaseActivity implements Injectable {
         startActivityForResult(intent, REQUEST_CODE_SCAN);
     }
 
-    private void sendCode(String code) {
-        sendCodeViewModel.sendCode(code);
-    }
-
     private void handleCreateUserResult(Resource<Void> result) {
         binding.setLoading(result.isLoading());
         if (result.isError()) {
@@ -151,18 +148,23 @@ public class CreateUserActivity extends BaseActivity implements Injectable {
         }
     }
 
-    private void handleSendCodeResult(Resource<ScanCodeResult> result) {
-        if (result.isLoading()) {
-            LoadingDialog.getInstance(this).show();
-        } else {
-            LoadingDialog.getInstance(this).hideAlways();
-            ScanResultActivity.start(this, result.isSuccessfully(), result.message, result.data);
-        }
-    }
-
     private void goLogin() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void goSelectArea(String code) {
+        Intent intent = new Intent(this, AreaActivity.class);
+        intent.putExtra(AreaActivity.EXTRA_CODE, code);
+        startActivityForResult(intent, REQUEST_CODE_AREA);
+    }
+
+    private void goHistory(String code, String event, String area) {
+        Intent intent = new Intent(this, HistoryActivity.class);
+        intent.putExtra(HistoryActivity.EXTRA_CODE, code);
+        intent.putExtra(HistoryActivity.EXTRA_EVENT, event);
+        intent.putExtra(HistoryActivity.EXTRA_AREA, area);
         startActivity(intent);
     }
 }

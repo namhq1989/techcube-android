@@ -12,10 +12,11 @@ import com.imed.db.EventDao;
 import com.imed.db.UserDao;
 import com.imed.livedata.StaticLiveData;
 import com.imed.livedata.Transformations;
+import com.imed.model.CheckCodeResult;
 import com.imed.model.EventAndPlan;
 import com.imed.model.GetConfigResult;
+import com.imed.model.HistoryResult;
 import com.imed.model.LoginResult;
-import com.imed.model.ScanCodeResult;
 import com.imed.service.AppService;
 import com.imed.utils.AppExecutors;
 import com.imed.utils.SPUtils;
@@ -161,14 +162,24 @@ public class AppRepository {
         }.asLiveData();
     }
 
-    public LiveData<Resource<ScanCodeResult>> sendCode(String code) {
-        return new NetworkResource<ScanCodeResult>(appExecutors) {
+    public LiveData<Resource<CheckCodeResult>> checkCode(String code) {
+        return new NetworkResource<CheckCodeResult>(appExecutors) {
             @NonNull
             @Override
-            protected LiveData<ApiResponse<ScanCodeResult>> createCall() {
+            protected LiveData<ApiResponse<CheckCodeResult>> createCall() {
+                return appService.checkCode(code);
+            }
+        }.asLiveData();
+    }
+
+    public LiveData<Resource<HistoryResult>> checkIn(String code, String event, String area) {
+        return new NetworkResource<HistoryResult>(appExecutors) {
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<HistoryResult>> createCall() {
                 String agent = System.getProperty("http.agent");
                 String deviceName = String.format("%s %s", Build.MANUFACTURER, Build.MODEL);
-                return appService.sendCode(code, agent, deviceName);
+                return appService.sendCode(code, event, area, agent, deviceName);
             }
         }.asLiveData();
     }

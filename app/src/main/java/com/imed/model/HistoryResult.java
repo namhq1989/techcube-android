@@ -8,7 +8,7 @@ import java.util.List;
  * Created by vinhnguyen.it.vn on 2017, November 30
  */
 
-public class ScanCodeResult {
+public class HistoryResult {
     @SerializedName("customer")
     public Customer customer;
     @SerializedName("histories")

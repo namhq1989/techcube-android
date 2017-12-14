@@ -1,6 +1,8 @@
 package com.imed.di;
 
+import com.imed.ui.area.AreaActivity;
 import com.imed.ui.create.CreateUserActivity;
+import com.imed.ui.history.HistoryActivity;
 import com.imed.ui.login.LoginActivity;
 import com.imed.ui.splash.SplashActivity;
 
@@ -21,5 +23,11 @@ public abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract LoginActivity contributeLoginActivity();
+
+    @ContributesAndroidInjector
+    abstract AreaActivity contributeAreaActivity();
+
+    @ContributesAndroidInjector
+    abstract HistoryActivity contributeHistoryActivity();
 
 }
