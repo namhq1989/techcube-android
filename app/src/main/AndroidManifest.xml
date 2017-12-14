@@ -20,14 +20,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.create.MainActivity"
+            android:name=".ui.create.CreateUserActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.scan.ScanQRCodeActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.login.LoginActivity" />
         <activity
-            android:name=".ui.scan.ScanResultActivity"
-            android:screenOrientation="portrait" />
+            android:name=".ui.area.AreaActivity"
+            android:label="@string/select_area_title"
+            android:theme="@style/AppTheme.ActionBar" />
+        <activity
+            android:name=".ui.history.HistoryActivity"
+            android:label="@string/history_title"
+            android:theme="@style/AppTheme.ActionBar" />
 
     </application>
 </manifest>

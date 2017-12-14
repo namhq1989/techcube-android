@@ -1,25 +1,65 @@
 package com.imed.ui.splash;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.imed.R;
+import com.imed.api.Resource;
+import com.imed.di.Injectable;
 import com.imed.ui.base.BaseActivity;
-import com.imed.ui.create.MainActivity;
+import com.imed.ui.create.CreateUserActivity;
+import com.imed.ui.login.LoginActivity;
+import com.imed.utils.AppUtils;
+
+import javax.inject.Inject;
 
 /**
  * Created by vinhnguyen.it.vn on 2017, December 01
  */
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity implements Injectable {
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DataBindingUtil.setContentView(this, R.layout.activity_splash);
 
-        Intent intent = new Intent(this, MainActivity.class);
+        SplashViewModel splashViewModel = ViewModelProviders.of(this, viewModelFactory).get(SplashViewModel.class);
+        splashViewModel.getAction().observe(this, this::handleAction);
+    }
+
+    private void handleAction(Resource<String> result) {
+        if (result.isError()) {
+            AppUtils.showMessage(this, result.message, this::finish);
+            return;
+        }
+        if (result.isSuccessfully() && result.data != null) {
+            switch (result.data) {
+                case SplashViewModel.ACTION_GO_LOGIN:
+                    goLogin();
+                    break;
+                case SplashViewModel.ACTION_GO_MAIN:
+                    goMain();
+                    break;
+            }
+        }
+    }
+
+    private void goMain() {
+        Intent intent = new Intent(this, CreateUserActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void goLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

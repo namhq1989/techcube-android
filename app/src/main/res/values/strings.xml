@@ -1,4 +1,9 @@
 <resources>
+    <string name="login_title">Đăng nhập</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Mật khẩu</string>
+    <string name="login_submit">Đăng nhập</string>
+
     <string name="create_user_title">Tạo khách hàng</string>
     <string name="create_user_full_name">Họ tên</string>
     <string name="create_user_company">Công ty</string>
@@ -10,4 +15,14 @@
     <string name="scan_result_back">Quay lại</string>
     <string name="scan_result_success_content">" ●  Sự kiện: %1$s\n     Thời gian: %2$s"</string>
     <string name="loading">Vui lòng chờ trong giây lát</string>
+
+    <string name="select_area_cancel">Hủy</string>
+    <string name="select_area_checkin">Checkin</string>
+    <string name="select_area_title">Chọn khu vực</string>
+    <string name="area_x_y_checkin">%1$s - %2$d lần checkin</string>
+
+    <string name ="history_title">Lịch sử quét</string>
+    <string name="history_name">Sự kiện</string>
+    <string name="history_area">Khu vực:</string>
+    <string name="history_time">Thời gian</string>
 </resources>

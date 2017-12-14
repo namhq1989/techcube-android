@@ -1,6 +1,10 @@
 package com.imed.di;
 
-import com.imed.ui.create.MainActivity;
+import com.imed.ui.area.AreaActivity;
+import com.imed.ui.create.CreateUserActivity;
+import com.imed.ui.history.HistoryActivity;
+import com.imed.ui.login.LoginActivity;
+import com.imed.ui.splash.SplashActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -12,6 +16,18 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class ActivityModule {
 
     @ContributesAndroidInjector
-    abstract MainActivity contributeMainActivity();
+    abstract SplashActivity contributeSplashActivity();
+
+    @ContributesAndroidInjector
+    abstract CreateUserActivity contributeMainActivity();
+
+    @ContributesAndroidInjector
+    abstract LoginActivity contributeLoginActivity();
+
+    @ContributesAndroidInjector
+    abstract AreaActivity contributeAreaActivity();
+
+    @ContributesAndroidInjector
+    abstract HistoryActivity contributeHistoryActivity();
 
 }

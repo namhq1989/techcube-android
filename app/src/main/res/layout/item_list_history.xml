@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="history"
+            type="com.imed.model.History" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/white">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideLine1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="16dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideLine2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="106dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/TextViewHistoryLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/history_name"
+            app:layout_constraintBottom_toTopOf="@+id/textView2"
+            app:layout_constraintStart_toStartOf="@+id/guideLine1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/TextViewHistoryLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/history_area"
+            app:layout_constraintBottom_toTopOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="@+id/guideLine1"
+            app:layout_constraintTop_toBottomOf="@+id/textView1" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/TextViewHistoryLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/history_time"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideLine1"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/tvHistoryName"
+            style="@style/TextViewHistoryValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{history.event.name}"
+            app:layout_constraintBottom_toTopOf="@+id/tvHistoryArea"
+            app:layout_constraintStart_toStartOf="@+id/guideLine2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHistoryArea"
+            style="@style/TextViewHistoryValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{history.area.name}"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvHistoryTime"
+            app:layout_constraintStart_toStartOf="@+id/guideLine2"
+            app:layout_constraintTop_toBottomOf="@+id/tvHistoryName" />
+
+        <TextView
+            android:id="@+id/tvHistoryTime"
+            style="@style/TextViewHistoryValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:historyTime="@{history}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideLine2"
+            app:layout_constraintTop_toBottomOf="@+id/tvHistoryArea" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

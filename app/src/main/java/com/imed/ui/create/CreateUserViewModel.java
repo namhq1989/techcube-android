@@ -5,8 +5,12 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.imed.api.Resource;
 import com.imed.livedata.Transformations;
+import com.imed.model.EventAndPlan;
+import com.imed.model.Plan;
 import com.imed.repository.AppRepository;
 import com.imed.ui.base.BaseViewModel;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -16,20 +20,55 @@ import javax.inject.Inject;
 
 public class CreateUserViewModel extends BaseViewModel {
 
+    private final LiveData<List<EventAndPlan>> eventsLiveData;
+    private final MutableLiveData<EventAndPlan> selectedEventLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Plan> selectedPlanLiveData = new MutableLiveData<>();
+
     private final MutableLiveData<UserInfo> userInfoMutableLiveData = new MutableLiveData<>();
     private final LiveData<Resource<Void>> createUserResultLiveData;
 
+    private final AppRepository appRepository;
+
     @Inject
     public CreateUserViewModel(AppRepository appRepository) {
-        createUserResultLiveData = Transformations.switchMap(userInfoMutableLiveData, info -> appRepository.createUser(info.name, info.company, info.phone, info.email));
+        this.appRepository = appRepository;
+
+        eventsLiveData = appRepository.loadEvents();
+        createUserResultLiveData = Transformations.switchMap(userInfoMutableLiveData, info -> {
+            EventAndPlan event = selectedEventLiveData.getValue();
+            String eventId = event != null ? event.event.id : null;
+            Plan plan = selectedPlanLiveData.getValue();
+            String planId = plan != null ? plan.id : null;
+            return appRepository.createUser(info.name, info.company, info.phone, info.email, eventId, planId);
+        });
     }
 
     public void create(String name, String company, String phone, String email) {
         userInfoMutableLiveData.setValue(new UserInfo(name, company, phone, email));
     }
 
+    public void select(EventAndPlan event) {
+        selectedEventLiveData.setValue(event);
+    }
+
+    public void select(Plan plan) {
+        selectedPlanLiveData.setValue(plan);
+    }
+
+    public void logout() {
+        appRepository.logout();
+    }
+
     public LiveData<Resource<Void>> getCreateUserResultLiveData() {
         return createUserResultLiveData;
+    }
+
+    public LiveData<List<EventAndPlan>> getEvents() {
+        return eventsLiveData;
+    }
+
+    public MutableLiveData<EventAndPlan> getSelectedEvent() {
+        return selectedEventLiveData;
     }
 
     private static final class UserInfo {

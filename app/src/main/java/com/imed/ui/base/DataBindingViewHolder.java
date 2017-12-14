@@ -1,5 +1,6 @@
 package com.imed.ui.base;
 
+import android.databinding.DataBindingComponent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +20,11 @@ public class DataBindingViewHolder<Binding extends ViewDataBinding> extends Recy
     }
 
     public DataBindingViewHolder(LayoutInflater inflater, ViewGroup parent, int layout) {
-        this(DataBindingUtil.inflate(inflater, layout, parent, false));
+        this(inflater, parent, layout, null);
+    }
+
+    public DataBindingViewHolder(LayoutInflater inflater, ViewGroup parent, int layout, DataBindingComponent dataBindingComponent) {
+        this(DataBindingUtil.inflate(inflater, layout, parent, false, dataBindingComponent));
     }
 
 

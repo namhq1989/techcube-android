@@ -6,8 +6,8 @@ android {
         applicationId "com.imed"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     dataBinding {
@@ -80,13 +80,13 @@ android {
 
 dependencies {
     ext.versions = [
-            support             : "27.0.1",
-            lifecycle           : "1.0.0",
-            constraint_layout   : "1.1.0-beta3",
-            okhttp              : "3.8.1",
-            retrofit            : "2.3.0",
-            dagger              : "2.13",
-            databinding         : "3.0.0"
+            support          : "27.0.2",
+            lifecycle        : "1.0.0",
+            constraint_layout: "1.1.0-beta3",
+            okhttp           : "3.8.1",
+            retrofit         : "2.3.0",
+            dagger           : "2.13",
+            databinding      : "3.0.0"
     ]
 
     implementation "com.android.support:appcompat-v7:${versions.support}"
@@ -98,9 +98,9 @@ dependencies {
 
     implementation "android.arch.lifecycle:extensions:${versions.lifecycle}"
     implementation "android.arch.lifecycle:common-java8:${versions.lifecycle}"
+    implementation "android.arch.paging:runtime:1.0.0-alpha4"
     implementation "android.arch.persistence.room:runtime:${versions.lifecycle}"
     annotationProcessor "android.arch.persistence.room:compiler:${versions.lifecycle}"
-    implementation "android.arch.paging:runtime:1.0.0-alpha3"
 
     implementation "com.google.dagger:dagger:${versions.dagger}"
     implementation "com.google.dagger:dagger-android:${versions.dagger}"
