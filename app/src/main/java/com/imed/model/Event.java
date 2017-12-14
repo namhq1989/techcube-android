@@ -25,6 +25,7 @@ public class Event {
     public final String name;
 
     @Ignore
+    @SerializedName("plans")
     public List<Plan> plans;
 
     public Event(@NonNull String id, String name) {
