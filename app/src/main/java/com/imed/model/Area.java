@@ -28,7 +28,7 @@ public class Area {
     @SerializedName("endAt")
     @ColumnInfo(name = "area_end_at")
     public final Date endAt;
-    @SerializedName("numberOfCheckin")
+    @SerializedName("numOfCheckin")
     @ColumnInfo(name = "area_number_of_checkin")
     public final int numOfCheckin;
 
