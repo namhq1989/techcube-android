@@ -17,6 +17,7 @@ import com.imed.model.EventAndPlan;
 import com.imed.model.GetConfigResult;
 import com.imed.model.HistoryResult;
 import com.imed.model.LoginResult;
+import com.imed.model.User;
 import com.imed.service.AppService;
 import com.imed.utils.AppExecutors;
 import com.imed.utils.SPUtils;
@@ -52,6 +53,10 @@ public class AppRepository {
 
     public boolean hasLogin() {
         return spUtils.getToken() != null;
+    }
+
+    public LiveData<User> loadUser() {
+        return userDao.loadUser();
     }
 
     public LiveData<Resource<Void>> loadConfig() {

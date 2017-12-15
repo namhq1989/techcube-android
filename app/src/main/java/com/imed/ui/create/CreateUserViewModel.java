@@ -7,6 +7,7 @@ import com.imed.api.Resource;
 import com.imed.livedata.Transformations;
 import com.imed.model.EventAndPlan;
 import com.imed.model.Plan;
+import com.imed.model.User;
 import com.imed.repository.AppRepository;
 import com.imed.ui.base.BaseViewModel;
 
@@ -20,6 +21,8 @@ import javax.inject.Inject;
 
 public class CreateUserViewModel extends BaseViewModel {
 
+    private final LiveData<User> userLiveData;
+
     private final LiveData<List<EventAndPlan>> eventsLiveData;
     private final MutableLiveData<EventAndPlan> selectedEventLiveData = new MutableLiveData<>();
     private final MutableLiveData<Plan> selectedPlanLiveData = new MutableLiveData<>();
@@ -32,7 +35,7 @@ public class CreateUserViewModel extends BaseViewModel {
     @Inject
     public CreateUserViewModel(AppRepository appRepository) {
         this.appRepository = appRepository;
-
+        userLiveData = appRepository.loadUser();
         eventsLiveData = appRepository.loadEvents();
         createUserResultLiveData = Transformations.switchMap(userInfoMutableLiveData, info -> {
             EventAndPlan event = selectedEventLiveData.getValue();
@@ -61,6 +64,10 @@ public class CreateUserViewModel extends BaseViewModel {
 
     public LiveData<Resource<Void>> getCreateUserResultLiveData() {
         return createUserResultLiveData;
+    }
+
+    public LiveData<User> getUser() {
+        return userLiveData;
     }
 
     public LiveData<List<EventAndPlan>> getEvents() {

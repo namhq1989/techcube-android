@@ -12,6 +12,11 @@ import com.google.gson.annotations.SerializedName;
  */
 @Entity(tableName = "user")
 public class User {
+
+    public static final String ROLE_ADMIN = "admin";
+    public static final String ROLE_STAFF = "staff";
+    public static final String ROLE_CASHIER = "cashier";
+
     @PrimaryKey
     @SerializedName("_id")
     @ColumnInfo(name = "user_id")
@@ -36,5 +41,13 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.role = role;
+    }
+
+    public boolean canCheckin() {
+        return ROLE_ADMIN.equals(role) || ROLE_STAFF.equals(role);
+    }
+
+    public boolean canCreateUser() {
+        return ROLE_ADMIN.equals(role) || ROLE_CASHIER.equals(role);
     }
 }

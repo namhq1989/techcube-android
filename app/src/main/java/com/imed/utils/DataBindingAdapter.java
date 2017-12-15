@@ -136,4 +136,9 @@ public class DataBindingAdapter {
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy, HH:mm");
         textView.setText(formatter.print(history.date.getTime()));
     }
+
+    @BindingAdapter("enable")
+    public static void setEnable(ImageView view, boolean enable) {
+        view.setEnabled(enable);
+    }
 }

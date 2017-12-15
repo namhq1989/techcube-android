@@ -7,6 +7,11 @@
         <variable
             name="loading"
             type="boolean" />
+
+        <variable
+            name="user"
+            type="com.imed.model.User" />
+
     </data>
 
     <ScrollView
@@ -29,6 +34,7 @@
                 android:background="@drawable/background_button_camera"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_camera"
+                app:enable="@{user.canCheckin()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,7 +85,7 @@
                     android:layout_marginTop="50dp"
                     android:drawableLeft="@drawable/ic_name"
                     android:drawableStart="@drawable/ic_name"
-                    android:enabled="@{!loading}"
+                    android:enabled="@{!loading &amp;&amp; user.canCreateUser()}"
                     android:hint="@string/create_user_full_name"
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
@@ -99,7 +105,7 @@
                     android:layout_marginTop="15dp"
                     android:drawableLeft="@drawable/ic_company"
                     android:drawableStart="@drawable/ic_company"
-                    android:enabled="@{!loading}"
+                    android:enabled="@{!loading &amp;&amp; user.canCreateUser()}"
                     android:hint="@string/create_user_company"
                     android:imeOptions="actionNext"
                     android:inputType="textCapSentences"
@@ -119,7 +125,7 @@
                     android:layout_marginTop="15dp"
                     android:drawableLeft="@drawable/ic_phone"
                     android:drawableStart="@drawable/ic_phone"
-                    android:enabled="@{!loading}"
+                    android:enabled="@{!loading &amp;&amp; user.canCreateUser()}"
                     android:hint="@string/create_user_phone"
                     android:imeOptions="actionNext"
                     android:inputType="phone"
@@ -139,7 +145,7 @@
                     android:layout_marginTop="15dp"
                     android:drawableLeft="@drawable/ic_email"
                     android:drawableStart="@drawable/ic_email"
-                    android:enabled="@{!loading}"
+                    android:enabled="@{!loading &amp;&amp; user.canCreateUser()}"
                     android:hint="@string/create_user_email"
                     android:imeOptions="actionDone"
                     android:inputType="textEmailAddress"
@@ -169,6 +175,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginStart="10dp"
                     android:background="@drawable/background_spinner"
+                    android:enabled="@{!loading &amp;&amp; user.canCreateUser()}"
                     app:layout_constraintBottom_toTopOf="@+id/snChoosePlan"
                     app:layout_constraintEnd_toEndOf="@+id/frameEvent"
                     app:layout_constraintStart_toStartOf="@+id/frameEvent"
@@ -183,6 +190,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginStart="10dp"
                     android:background="@drawable/background_spinner"
+                    android:enabled="@{!loading &amp;&amp; user.canCreateUser()}"
                     app:layout_constraintBottom_toBottomOf="@+id/frameEvent"
                     app:layout_constraintEnd_toEndOf="@+id/frameEvent"
                     app:layout_constraintStart_toStartOf="@+id/frameEvent"
@@ -195,7 +203,7 @@
                     android:layout_marginBottom="30dp"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/background_button_white_dark_border"
-                    android:enabled="@{!loading}"
+                    android:enabled="@{!loading &amp;&amp; user.canCreateUser()}"
                     android:text="@string/create_user_reset"
                     android:textColor="@color/darkerGray"
                     android:textSize="13sp"
@@ -214,7 +222,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/background_button_orange"
-                    android:enabled="@{!loading}"
+                    android:enabled="@{!loading &amp;&amp; user.canCreateUser()}"
                     android:text="@string/create_user_create"
                     android:textColor="@color/white"
                     android:textSize="13sp"
@@ -222,7 +230,6 @@
                     app:layout_constraintBaseline_toBaselineOf="@+id/btUserReset"
                     app:layout_constraintEnd_toEndOf="@+id/backgroundWhite"
                     app:layout_constraintStart_toEndOf="@+id/btUserReset" />
-
 
             </android.support.constraint.ConstraintLayout>
 

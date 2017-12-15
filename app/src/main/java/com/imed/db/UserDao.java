@@ -1,5 +1,6 @@
 package com.imed.db;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -16,6 +17,9 @@ public abstract class UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insert(User user);
+
+    @Query("SELECT * FROM user")
+    public abstract LiveData<User> loadUser();
 
     @Query("DELETE FROM user")
     public abstract void deleteAll();

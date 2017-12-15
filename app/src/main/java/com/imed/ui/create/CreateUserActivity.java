@@ -46,6 +46,7 @@ public class CreateUserActivity extends BaseActivity implements Injectable {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_user);
 
         createUserViewModel = ViewModelProviders.of(this, viewModelFactory).get(CreateUserViewModel.class);
+        createUserViewModel.getUser().observe(this, binding::setUser);
         createUserViewModel.getCreateUserResultLiveData().observe(this, this::handleCreateUserResult);
 
         binding.btUserReset.setOnClickListener(view -> clearAllInput());
